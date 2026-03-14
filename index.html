@@ -1,159 +1,29 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>P2P交易网站</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
-        header {
-            background: #333;
-            color: #fff;
-            padding-top: 30px;
-            min-height: 70px;
-            border-bottom: #00abb3 3px solid;
-        }
-        header a {
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 16px;
-        }
-        header ul {
-            padding: 0;
-            list-style: none;
-        }
-        header li {
-            float: left;
-            display: inline;
-            padding: 0 20px 0 20px;
-        }
-        header #branding {
-            float: left;
-        }
-        header #branding h1 {
-            margin: 0;
-        }
-        header nav {
-            float: right;
-            margin-top: 10px;
-        }
-        header .highlight, header .current a {
-            color: #e8491d;
-            font-weight: bold;
-        }
-        header a:hover {
-            color: #ffffff;
-            font-weight: bold;
-        }
-        .banner {
-            background: url('banner.jpg') no-repeat;
-            background-size: cover;
-            min-height: 400px;
-            margin-top: 20px;
-        }
-        .banner h1 {
-            text-align: center;
-            padding-top: 100px;
-            font-size: 55px;
-            color: #fff;
-        }
-        .content {
-            margin-top: 20px;
-            padding: 20px;
-            background: #fff;
-        }
-        .content h2 {
-            text-align: center;
-        }
-        .content form {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .content form div {
-            margin: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            flex: 1 1 300px;
-        }
-        .content form input[type="text"], .content form input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-        }
-        .content form input[type="submit"] {
-            background: #e8491d;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
-        .content form input[type="submit"]:hover {
-            background: #c9371d;
-        }
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div id="branding">
-                <h1>P2P交易</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li class="current"><a href="#home">首页</a></li>
-                    <li><a href="#about">关于我们</a></li>
-                    <li><a href="#services">服务</a></li>
-                    <li><a href="#contact">联系方式</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<script>
+  async function loadAds() {
+    try {
+      const response = await fetch('https://square-shadow-80b8.ai10086coh.workers.dev/api/ads');
+      const ads = await response.json();
+      // 假设你的广告列表容器是 <div id="ad-list"></div>
+      const container = document.getElementById('ad-list');
+      container.innerHTML = ''; // 清空
+      ads.forEach(ad => {
+        const adElement = document.createElement('div');
+        adElement.className = 'ad-item';
+        adElement.innerHTML = `
+          <div>卖家：${ad.seller_name}</div>
+          <div>支付方式：${ad.payment_method}</div>
+          <div>价格：${ad.price}</div>
+          <div>限额：${ad.min_limit} - ${ad.max_limit}</div>
+          <div>可用数量：${ad.available_amount}</div>
+          <button>购买</button>
+        `;
+        container.appendChild(adElement);
+      });
+    } catch (error) {
+      console.error('加载广告失败', error);
+    }
+  }
 
-    <section class="banner">
-        <div class="container">
-            <h1>欢迎来到P2P交易平台</h1>
-        </div>
-    </section>
-
-    <section class="content">
-        <div class="container">
-            <h2>注册/登录</h2>
-            <form action="#" method="post">
-                <div>
-                    <label for="email">邮箱:</label>
-                    <input type="email" id="email" name="email">
-                </div>
-                <div>
-                    <label for="password">密码:</label>
-                    <input type="password" id="password" name="password">
-                </div>
-                <div>
-                    <input type="submit" value="登录">
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <p>P2P交易 &copy; 2026</p>
-    </footer>
-</body>
-</html>
+  // 页面加载时调用
+  window.addEventListener('DOMContentLoaded', loadAds);
+</script>
